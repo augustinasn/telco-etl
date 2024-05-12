@@ -1,5 +1,7 @@
 import pandas as pd
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, text
+from sqlalchemy.schema import DDL
+
 from src.db.models import meta
 from src.transformation import read_file_as_txt
 
@@ -27,8 +29,10 @@ class DatabaseManager:
     def execute_raw_query(self, query: str):
         with self.engine.connect() as con:
             con.execute(query)
+            con.commit()
 
     def create_view_from_sql_file(self, name, fp):
         query = read_file_as_txt(fp)
-        query = f"CREATE OR REPLACE VIEW {name} AS {query};"
-        self.execute_raw_query(query)
+        query = f"CREATE OR REPLACE VIEW {name} AS {query}"
+        ddl = DDL(query)
+        self.execute_raw_query(ddl)

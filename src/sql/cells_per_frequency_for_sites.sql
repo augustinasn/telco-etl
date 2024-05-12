@@ -1,11 +1,15 @@
 SELECT
     s.site_id,
-    CONCAT('frequency_band_G', c.frequency_band, '_by_site') AS frequency_band_label,
-    COUNT(*) AS cell_count
+    COUNT(CASE WHEN cd.type = 'gsm' AND cd.frequency_band = 900 THEN 1 END) AS frequency_band_G900_by_site,
+    COUNT(CASE WHEN cd.type = 'gsm' AND cd.frequency_band = 1800 THEN 1 END) AS frequency_band_G1800_by_site,
+    COUNT(CASE WHEN cd.type = 'umts' AND cd.frequency_band = 2100 THEN 1 END) AS frequency_band_U2100_by_site,
+    COUNT(CASE WHEN cd.type = 'lte' AND cd.frequency_band = 700 THEN 1 END) AS frequency_band_L700_by_site,
+    COUNT(CASE WHEN cd.type = 'lte' AND cd.frequency_band = 800 THEN 1 END) AS frequency_band_L800_by_site,
+    COUNT(CASE WHEN cd.type = 'lte' AND cd.frequency_band = 1800 THEN 1 END) AS frequency_band_L1800_by_site,
+    COUNT(CASE WHEN cd.type = 'lte' AND cd.frequency_band = 2600 THEN 1 END) AS frequency_band_L2600_by_site
 FROM
-    sites s
+    cell_data AS cd
 JOIN
-    cell_data c ON s.site_id = c.site_id
+    sites AS s ON cd.site_id = s.site_id
 GROUP BY
-    s.site_id,
-    c.frequency_band;
+    s.site_id;

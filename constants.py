@@ -18,4 +18,4 @@ SITES_FP = os.path.join(DATA_FP, "site.csv")
 LOGS_FP = os.path.join(".", "logs", "debug.log")
 
 CELLS_PER_FREQUENCY_FOR_SITES_SQL_FP = os.path.join(".", "src", "sql", "cells_per_frequency_for_sites.sql")
-CELLS_PER_TECHNOLOGY_FOR_SITES_SQL_FP = os.path.join(".", "src", "sql", "cells_per_frequency_for_sites.sql")
+CELLS_PER_TECHNOLOGY_FOR_SITES_SQL_FP = os.path.join(".", "src", "sql", "cells_per_technology_for_sites.sql")

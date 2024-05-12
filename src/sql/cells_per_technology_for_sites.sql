@@ -1,11 +1,17 @@
 SELECT
     s.site_id,
-    COUNT(CASE WHEN c.type = 'gsm' THEN 1 END) AS site_gsm_cnt,
-    COUNT(CASE WHEN c.type = 'umts' THEN 1 END) AS site_umts_cnt,
-    COUNT(CASE WHEN c.type = 'lte' THEN 1 END) AS site_lte_cnt
+    COALESCE(gsm_count, 0) AS site_gsm_cnt,
+    COALESCE(umts_count, 0) AS site_umts_cnt,
+    COALESCE(lte_count, 0) AS site_lte_cnt
 FROM
     sites s
-JOIN
-    cell_data c ON s.site_id = c.site_id
-GROUP BY
-    s.site_id;
+LEFT JOIN
+    (SELECT
+         site_id,
+         COUNT(CASE WHEN type = 'gsm' THEN 1 END) AS gsm_count,
+         COUNT(CASE WHEN type = 'umts' THEN 1 END) AS umts_count,
+         COUNT(CASE WHEN type = 'lte' THEN 1 END) AS lte_count
+     FROM
+         cell_data
+     GROUP BY
+         site_id) c ON s.site_id = c.site_id;
