@@ -14,24 +14,24 @@ This project is designed to perform data extraction, transformation, and loading
 │   README.md
 │   requirements.txt
 │           
-├───data
+├───data/
 │       gsm.csv
 │       lte.csv
 │       site.csv
 │       umts.csv
 │       
-├───logs
+├───logs/
 │       .gitkeep
 │       
-└───src
+└───src/
     │   logger.py
     │   transformation.py
     │   
-    ├───db
+    ├───db/
     │       models.py
     │       __init__.py
     │       
-    └───sql
+    └───sql/
             cells_per_frequency_for_sites.sql
             cells_per_technology_for_sites.sql
 ```
@@ -48,5 +48,5 @@ This project is designed to perform data extraction, transformation, and loading
 2. Ensure you have Docker installed.
 3. Rename `.env_example` to `.env` and fill in the required environment variables.
 4. Run `docker-compose up` to build and start the Docker containers.
-5. Once the containers are running, connect to the database via a db browser of your choice at localhost:5432 to inspect the results (use credentials from .env file).
+5. Once the containers are running, connect to the database via a db browser of your choice at `localhost:5432` to inspect the results (use credentials from .env file).
 6. To troubleshoot the process refer to the `debug.log` file that will be generated in the `logs/` subdirectory.
